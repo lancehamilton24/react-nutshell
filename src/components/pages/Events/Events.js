@@ -1,13 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import EventItem from '../../EventItem/EventItem';
-// import eventShape from '../../../helpers/propz/eventShape';
-
 import authRequests from '../../../helpers/data/authRequests';
-
 import smashRequests from '../../../helpers/data/smashRequests';
-// import './Home.scss';
-// import { homedir } from 'os';
+
 
 class Events extends React.Component {
   state = {
