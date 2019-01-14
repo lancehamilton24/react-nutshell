@@ -36,6 +36,7 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
 class App extends React.Component {
   state = {
     authed: false,
+    currentUid: '',
     pendingUser: true,
   }
 
@@ -45,11 +46,13 @@ class App extends React.Component {
       if (user) {
         this.setState({
           authed: true,
+          currentUid: '',
           pendingUser: false,
         });
       } else {
         this.setState({
           authed: false,
+          currentUid: '',
           pendingUser: false,
         });
       }
