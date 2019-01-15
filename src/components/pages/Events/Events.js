@@ -8,8 +8,6 @@ import EventForm from '../../EventForm/EventForm';
 class Events extends React.Component {
   state = {
     events: [],
-    isEditing: false,
-    editId: '-1',
   }
 
   componentDidMount() {
@@ -22,26 +20,15 @@ class Events extends React.Component {
   }
 
   formSubmitEvent = (newEvent) => {
-    const { isEditing, editId } = this.state;
-    if (isEditing) {
-      eventRequests.putRequest(editId, newEvent)
-        .then(() => {
-          eventRequests.getRequest()
-            .then((events) => {
-              this.setState({ events, isEditing: false, editId: '-1' });
-            });
-        })
-        .catch(err => console.error('error with listings post', err));
-    } else {
-      eventRequests.postRequest(newEvent)
-        .then(() => {
-          eventRequests.getRequest()
-            .then((events) => {
-              this.setState({ events });
-            });
-        })
-        .catch(err => console.error('error with listings post', err));
-    }
+    eventRequests.postRequest(newEvent)
+      .then(() => {
+        const currentUid = authRequests.getCurrentUid();
+        smashRequests.getEventsFromMeAndFriends(currentUid)
+          .then((events) => {
+            this.setState({ events });
+          });
+      })
+      .catch(err => console.error('error with listings post', err));
   }
 
   render() {
@@ -54,7 +41,7 @@ class Events extends React.Component {
         key={event.id}
         />
     ));
-    
+
     return (
       <div className='Events'>
           <div class="event-container">
