@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './EventForm.scss';
 import authRequests from '../../helpers/data/authRequests';
-// import eventRequests from '../../helpers/data/eventRequests';
 
 const defaultEvent = {
   event: '',
@@ -48,17 +47,6 @@ class EventForm extends React.Component {
     this.setState({ newEvent: defaultEvent });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { isEditing, editId } = this.props;
-  //   if (prevProps !== this.props && isEditing) {
-  //     eventRequests.getAllEvents(editId)
-  //       .then((event) => {
-  //         this.setState({ newEvent: event.data });
-  //       })
-  //       .catch(err => console.error('error with getSingleListing', err));
-  //   }
-  // }
-
   render() {
     const { newEvent } = this.state;
     return (
@@ -72,7 +60,7 @@ class EventForm extends React.Component {
               className="form-control"
               id="address"
               aria-describedby="addressHelp"
-              placeholder="123 Main Street Nashville, TN 37209"
+              placeholder="Mardi Gras"
               value={newEvent.event}
               onChange={this.eventChange}
             />
@@ -84,7 +72,7 @@ class EventForm extends React.Component {
               className="form-control"
               id="imageUrl"
               aria-describedby="imageUrlHelp"
-              placeholder="www.google.com"
+              placeholder="February 13, 2018"
               value={newEvent.startDate}
               onChange={this.startDateChange}
             />
@@ -96,7 +84,7 @@ class EventForm extends React.Component {
               className="form-control"
               id="squareFootage"
               aria-describedby="squareFootageHelp"
-              placeholder="1234"
+              placeholder="100 Canal Street"
               value={newEvent.location}
               onChange={this.locationChange}
             />
