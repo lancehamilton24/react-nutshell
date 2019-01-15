@@ -1,0 +1,19 @@
+.event-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.event-container {
+  padding: 2%;
+  height: 100%;
+}
+
+.card {
+  height: 100%;
+  width: 250px;
+  text-align: center;
+}
+
+.event-form {
+  padding: 0% 0% 0% 0%;
+}

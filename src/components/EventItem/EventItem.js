@@ -15,10 +15,12 @@ class EventItem extends React.Component {
 
 
     return (
-      <div className="event-container card">
-        <span className="col-7">{event.event}</span>
-        <span className="col-7">{event.startDate}</span>
-        <span className="col-7">{event.location}</span>
+      <div className="event-container">
+        <div className="card">
+        <h2 className="event-name">{event.event}</h2>
+        <h4 className="event-date">{event.startDate}</h4>
+        <h4 className="event-location">{event.location}</h4>
+        </div>
       </div>
     );
   }

@@ -2,7 +2,8 @@ import React from 'react';
 import EventItem from '../../EventItem/EventItem';
 import authRequests from '../../../helpers/data/authRequests';
 import smashRequests from '../../../helpers/data/smashRequests';
-
+import eventRequests from '../../../helpers/data/eventRequests';
+import EventForm from '../../EventForm/EventForm';
 
 class Events extends React.Component {
   state = {
@@ -18,6 +19,18 @@ class Events extends React.Component {
       .catch(err => console.error('error with listing GET', err));
   }
 
+  formSubmitEvent = (newEvent) => {
+    eventRequests.postRequest(newEvent)
+      .then(() => {
+        const currentUid = authRequests.getCurrentUid();
+        smashRequests.getEventsFromMeAndFriends(currentUid)
+          .then((events) => {
+            this.setState({ events });
+          });
+      })
+      .catch(err => console.error('error with listings post', err));
+  }
+
   render() {
     const {
       events,
@@ -28,14 +41,15 @@ class Events extends React.Component {
         key={event.id}
         />
     ));
-    
+
     return (
       <div className='Events'>
-      <div class="card-deck">
-          <div class="card-body text-center">
-            <h3>{eventsItemComponents}</h3>
-          </div>
+          <div class="event-container">
+            <div class="event-cards">{eventsItemComponents}</div>
       </div>
+      <div className="row">
+          <EventForm onSubmit={this.formSubmitEvent} />
+        </div>
     </div>
     );
   }
