@@ -31,10 +31,8 @@ class Events extends React.Component {
     
     return (
       <div className='Events'>
-      <div class="card-deck">
-          <div class="card-body text-center">
-            <h3>{eventsItemComponents}</h3>
-          </div>
+          <div class="event-container">
+            <div class="event-cards">{eventsItemComponents}</div>
       </div>
     </div>
     );
