@@ -11,7 +11,8 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    eventRequests.getAllEvents()
+    const currentUid = authRequests.getCurrentUid();
+    smashRequests.getEventsFromMeAndFriends(currentUid)
       .then((events) => {
         this.setState({ events });
       })
