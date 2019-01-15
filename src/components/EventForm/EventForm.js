@@ -19,24 +19,18 @@ class EventForm extends React.Component {
     newEvent: defaultEvent,
   }
 
-  formFieldStringState = (name, e) => {
+  formFieldStringAndNumberState = (name, e) => {
     e.preventDefault();
     const tempEvent = { ...this.state.newEvent };
     tempEvent[name] = e.target.value;
     this.setState({ newEvent: tempEvent });
   }
 
-  formFieldNumberState = (name, e) => {
-    const tempEvent = { ...this.state.newEvent };
-    tempEvent[name] = e.target.value;
-    this.setState({ newEvent: tempEvent });
-  }
+  eventChange = e => this.formFieldStringAndNumberState('event', e);
 
-  eventChange = e => this.formFieldStringState('event', e);
+  startDateChange = e => this.formFieldStringAndNumberState('startDate', e);
 
-  startDateChange = e => this.formFieldStringState('startDate', e);
-
-  locationChange = e => this.formFieldStringState('location', e);
+  locationChange = e => this.formFieldStringAndNumberState('location', e);
 
   formSubmit = (e) => {
     e.preventDefault();
