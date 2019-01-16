@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './EventForm.scss';
 import authRequests from '../../helpers/data/authRequests';
+import eventRequests from '../../helpers/data/eventRequests';
 
 const defaultEvent = {
   event: '',
@@ -13,6 +14,8 @@ const defaultEvent = {
 class EventForm extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func,
+    isEditing: PropTypes.bool,
+    editId: PropTypes.string,
   }
 
   state = {
@@ -41,11 +44,29 @@ class EventForm extends React.Component {
     this.setState({ newEvent: defaultEvent });
   }
 
+  componentDidUpdate(prevProps) {
+    const { isEditing, editId } = this.props;
+    if (prevProps !== this.props && isEditing) {
+      eventRequests.getSingleEvent(editId)
+        .then((event) => {
+          this.setState({ newListing: event.data });
+        })
+        .catch(err => console.error('error with getSingleListing', err));
+    }
+  }
+
   render() {
     const { newEvent } = this.state;
+    const { isEditing } = this.props;
+    const title = () => {
+      if (isEditing) {
+        return <h2>Edit Event:</h2>;
+      }
+      return <h2>New Event:</h2>;
+    };
     return (
       <div className="event-form col">
-        <h2>New Event:</h2>
+        {title()}
         <form onSubmit={this.formSubmit}>
           <div className="form-group">
             <label htmlFor="event">Event Name:</label>
