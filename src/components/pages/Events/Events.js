@@ -19,6 +19,17 @@ class Events extends React.Component {
       .catch(err => console.error('error with listing GET', err));
   }
 
+  deleteOne = (eventId) => {
+    eventRequests.deleteEvent(eventId)
+      .then(() => {
+        eventRequests.getAllEvents()
+          .then((events) => {
+            this.setState({ events });
+          });
+      })
+      .catch(err => console.error('error with delete single', err));
+  }
+
   formSubmitEvent = (newEvent) => {
     eventRequests.postRequest(newEvent)
       .then(() => {
@@ -38,6 +49,7 @@ class Events extends React.Component {
     const eventsItemComponents = events.map(event => (
       <EventItem
         event={event}
+        deleteSingleEvent={this.deleteOne}
         key={event.id}
         />
     ));
